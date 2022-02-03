@@ -20,7 +20,7 @@ Q_50_C = np.array([[17,18,24,47,99,99,99,99],
                     [99,99,99,99,99,99,99,99]])
 
 def Quant_Y(block):
-    return np.round(np.divide(block,Q_50_Y))
+    return np.round(np.divide(block,Q_50_Y)).astype('int8')
 
 
 def Quant_C(block):
