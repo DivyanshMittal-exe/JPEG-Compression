@@ -18,15 +18,14 @@ def zigzagflat(block):
 def zigzagbuff(arr):
     return arr[buff].reshape([8,8])
 
-def hof(block):
-    data = zigzagflat(block)
+def hof(data):
     vals, freq = np.unique(data, return_counts=True)
     codec_dict = dict(zip(vals, freq))
-    print(codec_dict)
+    # print(codec_dict)
     codec = HuffmanCodec.from_frequencies(codec_dict)
     
-    print(codec.decode(codec.encode(data)))
-    return codec.encode(data)
+    # print(codec.decode(codec.encode(data)))
+    return codec,codec.encode(data)
 
 if __name__ == '__main__':
     from DFT import *
