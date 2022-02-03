@@ -1,6 +1,6 @@
 import cv2
 import  numpy as np
-
+from Subsample import *
 
 class jpeg:
     Chroma_Scale = 2
@@ -8,26 +8,6 @@ class jpeg:
     def __init__(self):
         pass
     
-    def avg_subsample(self,channel,scale):
-        row,col = channel.shape
-        channel  = channel[(row%scale//2):row - (row%scale//2),(col%scale//2):col - (col%scale//2)]
-        c = np.zeros([row//scale,col//scale])
-        row_f,col_f = c.shape
-        
-        for i in range(row_f-1):
-            for j in range(col_f-1):
-                c[i][j] = np.mean(channel[i*scale:(i+1)*scale,j*scale:(j+1)*scale])
-        return c
-    
-    def max_subsample(self,channel,scale):
-        row,col = channel.shape
-        c = np.zeros(row//scale,col//scale)
-        row_f,col_f = c.shape
-        
-        for i in range(row_f-1):
-            for j in range(col_f-1):
-                c[i][j] = np.amax(channel[i*scale:(i+1)*scale,j*scale:(j+1)*scale])
-        return c
     
     def compress(self,path):
         
@@ -38,8 +18,8 @@ class jpeg:
         Y  = img[:,:,0]
         Cb  = img[:,:,1]
         Cr  = img[:,:,2]
-        Cb = self.avg_subsample(Cb,self.Chroma_Scale)
-        Cr = self.avg_subsample(Cr,self.Chroma_Scale)
+        Cb = avg_subsample(Cb,self.Chroma_Scale)
+        Cr = avg_subsample(Cr,self.Chroma_Scale)
         
         
         cv2.imshow('Raw',Cb)
