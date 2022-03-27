@@ -1,5 +1,16 @@
 import numpy as np
 
+buff = np.array([[0,  1,  5,  6,  14, 15, 27, 28],
+                [2,  4,  7,  13, 16, 26, 29, 42],
+                [3,  8,  12, 17, 25, 30, 41, 43],
+                [9,  11, 18, 24, 31, 40, 44,53],
+                [10, 19, 23, 32, 39, 45, 52,54],
+                [20, 22, 33, 38, 46, 51, 55,60],
+                [21, 34, 37, 47, 50, 56, 59,61],
+                [35, 36, 48, 49, 57, 58, 62,63]])
+
+flat = np.argsort(buff.flatten())
+
 Q_50_Y = np.array([[16,11,10,16,24,40,51,61],
                     [12,12,14,19,26,58,60,55],
                     [14,13,16,24,40,57,69,56],
@@ -24,10 +35,17 @@ def Quant_Y(block):
 
 
 def Quant_C(block):
-    return np.round(np.divide(block,Q_50_C))
+    return np.round(np.divide(block,Q_50_C)).astype('int8')
 
 def inv_Quant_Y(block):
     return np.multiply(block,Q_50_Y)
 
 def inv_Quant_C(block):
     return np.multiply(block,Q_50_C)
+
+
+def zigzagflat(block):
+    return block.flatten()[flat]
+
+def zigzagbuff(arr):
+    return arr[buff].reshape([8,8])

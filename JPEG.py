@@ -11,7 +11,6 @@ class jpeg:
     def __init__(self):
         pass
     
-    
     def compress(self,path):
         
         img = cv2.imread(path)
@@ -21,8 +20,8 @@ class jpeg:
         Y  = img[:,:,0]
         Cb  = img[:,:,1]
         Cr  = img[:,:,2]
-        # Cb = avg_subsample(Cb,self.Chroma_Scale)
-        # Cr = avg_subsample(Cr,self.Chroma_Scale)
+        Cb = avg_subsample(Cb,self.Chroma_Scale)
+        Cr = avg_subsample(Cr,self.Chroma_Scale)
         data_arr = np.empty(shape=(0, 0))
         r,c = row//8,col//8
         for i in range(r):
