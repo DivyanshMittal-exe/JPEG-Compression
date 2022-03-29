@@ -15,6 +15,7 @@ def avg_subsample(channel,scale):
 def max_subsample(channel,scale):
     row,col = channel.shape
     c = np.zeros([row//scale,col//scale])
+    
     row_f,col_f = c.shape
     
     for i in range(row_f):

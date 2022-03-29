@@ -1,12 +1,9 @@
-from time import sleep
 import cv2
 import os
-from math import lcm
 import  numpy as np
 from Subsample import *
 from DFT import *
 from Quantisation import *
-# from HuffmanEncode import *
 
 class jpeg:
     Chroma_Scale = 1
@@ -50,15 +47,19 @@ class jpeg:
         
     def trim(self,img):
         row,col,c = img.shape
-        a = lcm(self.Chroma_Scale,8)
-        row_trim = (row - (row//a)*a)//2
-        col_trim = (col - (col//a)*a)//2
-        return img[row_trim:row-row_trim,col_trim:col-col_trim,:]
+        a = self.Chroma_Scale*8
+        row_trim = (row - (row//a)*a)
+        col_trim = (col - (col//a)*a)
+        row_trim_l = (row - (row//a)*a)//2
+        col_trim_l = (col - (col//a)*a)//2
+        row_trim_r = row_trim - row_trim_l
+        col_trim_r = col_trim - col_trim_l
+        return img[row_trim_l:row-row_trim_r,col_trim_l:col-col_trim_r,:]
+        
     
     def compress(self,path, name):
         img = cv2.imread(path)
         img = self.trim(img)
-        row,col,c = img.shape
         
         r = self.write_orignal(img[:,:,0], name + "_original_R","R")
         g = self.write_orignal(img[:,:,1], name + "_original_G","G")
@@ -69,7 +70,6 @@ class jpeg:
         Y  = img[:,:,0]
         Cb  = img[:,:,2]
         Cr  = img[:,:,1]
-        
         
         Cb = max_subsample(Cb,self.Chroma_Scale)
         Cr = max_subsample(Cr,self.Chroma_Scale)
@@ -117,7 +117,6 @@ class jpeg:
         cr = self.lines_to_matrix(cr,"Cr")
         cr = supersample(cr,self.Chroma_Scale)
         img = np.dstack((y, cr, cb)).astype(np.uint8)
-        print(img.shape)
         img = cv2.cvtColor(img, cv2.COLOR_YCR_CB2BGR)
         cv2.imwrite(name + "compressed.png", img)
         cv2.imshow('Compressed Image',img)
