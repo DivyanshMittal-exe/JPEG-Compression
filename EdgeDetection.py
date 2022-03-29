@@ -61,5 +61,11 @@ def edge_detect(path,name):
 
 
 if __name__ == '__main__':
-    path = "flower.jpg"
-    edge_detect(path,"EdgeDetectedOutput.jpg")
+    print("Enter name of input file : ")
+    path = str(input()).strip()
+    print("Enter name of destination file : ")
+    name = str(input()).strip()
+    if not(name.endswith(".jpg") or name.endswith(".jpeg")):
+        name += ".jpg"
+    # path = "flower.jpg"
+    edge_detect(path, name)
