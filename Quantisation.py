@@ -49,3 +49,5 @@ def zigzagflat(block):
 
 def zigzagbuff(arr):
     return arr[buff].reshape([8,8])
+
+

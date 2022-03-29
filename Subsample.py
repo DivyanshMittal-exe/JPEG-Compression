@@ -22,6 +22,18 @@ def max_subsample(channel,scale):
             c[i][j] = np.amax(channel[i*scale:(i+1)*scale,j*scale:(j+1)*scale])
     return c
 
+def supersample(channel,scale):
+    row,col = channel.shape
+    c = np.zeros([row*scale,col*scale])
+    for i in range(row):
+        for j in range(col):
+            c[i*scale:(i+1)*scale,j*scale:(j+1)*scale].fill(channel[i,j])
+    
+    return c
+
+
+    
+
 if __name__ == '__main__':
     test = np.array([[154,123,123,123,123,123,123,136],
                     [ 192,180,136,154,154,154,136,110],

@@ -42,6 +42,7 @@ def inv_dft(block):
     return np.round(mat) + 128
 
 
+
 if __name__ == '__main__':
     test = np.array([[154,123,123,123,123,123,123,136],
                     [ 192,180,136,154,154,154,136,110],
