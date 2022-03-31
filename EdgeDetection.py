@@ -46,6 +46,9 @@ def sobel_filter(img):
     output[:,:,1] = NormalizeData( V[:,:,0])*200
     output[:,:,2] = (NormalizeData( V[:,:,0])*200)
     output =  cv2.cvtColor(output, cv2.COLOR_HSV2BGR)
+    
+    # output = cv2.cvtColor(X_edge[:,:,0],cv2.COLOR_GRAY2BGR)
+    # output = cv2.cvtColor(Y_edge[:,:,0],cv2.COLOR_GRAY2BGR)
     return output
     
     
@@ -61,11 +64,13 @@ def edge_detect(path,name):
 
 
 if __name__ == '__main__':
-    print("Enter name of input file : ")
-    path = str(input()).strip()
-    print("Enter name of destination file : ")
-    name = str(input()).strip()
-    if not(name.endswith(".jpg") or name.endswith(".jpeg")):
-        name += ".jpg"
-    # path = "flower.jpg"
+    # print("Enter name of input file : ")
+    # path = str(input()).strip()
+    # print("Enter name of destination file : ")
+    # name = str(input()).strip()
+    # if not(name.endswith(".jpg") or name.endswith(".jpeg")):
+    #     name += ".jpg"
+    
+    path = "fourier.webp"
+    name = "fourierr_edge.png"
     edge_detect(path, name)

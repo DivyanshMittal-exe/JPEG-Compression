@@ -93,14 +93,16 @@ class jpeg:
         r,c = int(r),int(c)
         data_list = data_list[1:]
         data_list = [[int(ent) for ent in data] for data in data_list]
+
         data_list = [np.array(data) for data in data_list]
         data_list = [np.concatenate((data,np.zeros(64,))) for data in data_list]
         if header != "Y":
             data_list = [inv_dft(inv_Quant_C(zigzagbuff(data[:64]))) for data in data_list]
         else:
             data_list = [inv_dft(inv_Quant_Y(zigzagbuff(data[:64]))) for data in data_list]
+            
 
-        return np.concatenate([np.concatenate(data_list[c*i:c*(i+1)], axis=1) for i in range(r)], axis=0).astype(np.int8)
+        return np.concatenate([np.concatenate(data_list[c*i:c*(i+1)], axis=1) for i in range(r)], axis=0)
     
     def uncompress(self, name):
         try:
@@ -132,14 +134,14 @@ class jpeg:
         
 
 if __name__ == '__main__':
-    a = jpeg(2)
-    print("Enter name of file to be compressed : ")
-    path = str(input()).strip()
-    print("Enter name of destination file : ")
-    name = str(input()).strip()
+    a = jpeg(1)
+    # print("Enter name of file to be compressed : ")
+    # path = str(input()).strip()
+    # print("Enter name of destination file : ")
+    # name = str(input()).strip()
 
-    # path = "flower.jpg"
-    # name = "flower"
+    path = "fourier.webp"
+    name = "fourier"
     # path = "dog.NEF"
     a.compress(path, name)
     a.uncompress(name)
