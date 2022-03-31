@@ -2,7 +2,7 @@ import cv2
 import os
 import  numpy as np
 from Subsample import *
-from DFT import *
+from DCT import *
 from Quantisation import *
 
 class jpeg:
@@ -34,7 +34,7 @@ class jpeg:
         for i in range(r):
             for j in range(c):
                 block = img[i*8:(i+1)*8,j*8:(j+1)*8]
-                block = dft(block)
+                block = dct(block)
                 if header != "Y":
                     block = Quant_C(block)
                 else:
@@ -97,9 +97,9 @@ class jpeg:
         data_list = [np.array(data) for data in data_list]
         data_list = [np.concatenate((data,np.zeros(64,))) for data in data_list]
         if header != "Y":
-            data_list = [inv_dft(inv_Quant_C(zigzagbuff(data[:64]))) for data in data_list]
+            data_list = [inv_dct(inv_Quant_C(zigzagbuff(data[:64]))) for data in data_list]
         else:
-            data_list = [inv_dft(inv_Quant_Y(zigzagbuff(data[:64]))) for data in data_list]
+            data_list = [inv_dct(inv_Quant_Y(zigzagbuff(data[:64]))) for data in data_list]
             
 
         return np.concatenate([np.concatenate(data_list[c*i:c*(i+1)], axis=1) for i in range(r)], axis=0)
@@ -140,8 +140,8 @@ if __name__ == '__main__':
     # print("Enter name of destination file : ")
     # name = str(input()).strip()
 
-    path = "fourier.webp"
-    name = "fourier"
+    path = "flower.jpg"
+    name = "flowerY90"
     # path = "dog.NEF"
     a.compress(path, name)
     a.uncompress(name)
