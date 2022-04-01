@@ -140,8 +140,8 @@ if __name__ == '__main__':
     # print("Enter name of destination file : ")
     # name = str(input()).strip()
 
-    path = "fourier.webp"
-    name = "fourier"
+    path = "cat.jpg"
+    name = "cat"
     # path = "dog.NEF"
     a.compress(path, name)
     a.uncompress(name)

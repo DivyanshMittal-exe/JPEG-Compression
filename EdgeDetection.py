@@ -71,6 +71,6 @@ if __name__ == '__main__':
     # if not(name.endswith(".jpg") or name.endswith(".jpeg")):
     #     name += ".jpg"
     
-    path = "fourier.webp"
-    name = "fourierr_edge.png"
+    path = "Abhishek.png"
+    name = "Abhishek_png_edge.png"
     edge_detect(path, name)

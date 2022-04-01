@@ -31,17 +31,28 @@ Q_50_C = np.array([[17,18,24,47,99,99,99,99],
                     [99,99,99,99,99,99,99,99]])
 
 def Quant_Y(block):
-    return np.round(np.divide(block,Q_50_Y)).astype('int8')
+    return np.round(np.divide(block,Q_50_Y))
 
 
 def Quant_C(block):
-    return np.round(np.divide(block,Q_50_C)).astype('int8')
+    return np.round(np.divide(block,Q_50_C))
 
 def inv_Quant_Y(block):
-    return np.multiply(block,Q_50_Y)
+    invbl = np.multiply(block,Q_50_Y)
+    if np.count_nonzero(invbl) > 54:
+        m = np.mean(invbl[invbl > 0])
+        # Assign the median to the zero elements 
+        invbl[invbl == 0] = m
+    return invbl
 
 def inv_Quant_C(block):
-    return np.multiply(block,Q_50_C)
+    invbl =  np.multiply(block,Q_50_C)
+    
+    if np.count_nonzero(invbl) > 54:
+        m = np.mean(invbl[invbl > 0])
+        # Assign the median to the zero elements 
+        invbl[invbl == 0] = m
+    return invbl
 
 
 def zigzagflat(block):
